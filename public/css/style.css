@@ -1,0 +1,15 @@
+.container {
+  margin: 50px auto;
+}
+:root{
+  --font-family-sans-serif: 'Mitr', sans-serif;
+  --font-family-monospace: 'Mitr', sans-serif;
+}
+
+body {
+  font-family: 'Mitr', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Mitr', sans-serif;
+}

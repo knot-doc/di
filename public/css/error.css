@@ -1,0 +1,14 @@
+.error {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  min-height: 500px;
+  background: linear-gradient(-135deg, #34ebba, #b5ebff);
+  color: white;
+}
+.error-body {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
