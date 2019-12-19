@@ -2,26 +2,43 @@
 
 namespace KnotDoc\Di\App\Front;
 
-use Throwable;
-
-use KnotLib\Kernel\Kernel\ApplicationType;
-use KnotLib\Module\Application\SimpleApplication;
+use KnotLib\Router\DispatcherInterface;
 use KnotLib\Kernel\Kernel\ApplicationInterface;
-use KnotLib\Kernel\Logger\LoggerUtil;
-use KnotPhp\Framework\KnotFrameworkPackage;
 
-use KnotPhp\Module\AuraSession\AuraSessionModule;
-use KnotPhp\Module\GuzzleHttp\Package\GuzzleHttpPackage;
+use KnotPhp\Framework\Application\KnotHttpApplication;
 
-use KnotDoc\Di\App\Front\Module\FrontRouterModule;
-use KnotDoc\Di\App\Front\Module\FrontDiModule;
+use KnotDoc\Di\App\Front\Dispatcher\FrontDispatcher;
 
-class FrontWebApplication extends SimpleApplication
+class FrontWebApplication extends KnotHttpApplication
 {
-    public static function type(): ApplicationType
+    const ROUTING_RULES = [
+        "/" => "home",
+        "/:lang/" => "document.top",
+        "/:lang/top" => "document.top",
+        "/:lang/introduction" => "document.introduction",
+        "/:lang/quick-start" => "document.quick-start",
+
+        // BASIC USAGE
+        "/:lang/basic-usage/configuring-container" => "document.basic-usage.configuring-container",
+        "/:lang/basic-usage/using-container" => "document.basic-usage.using-container",
+    ];
+
+    /**
+     * @return DispatcherInterface
+     */
+    protected function getDispatcher(): DispatcherInterface
     {
-        return ApplicationType::of(ApplicationType::WEB_APP);
+        return new FrontDispatcher($this);
     }
+
+    /**
+     * @return array
+     */
+    protected function getRoutingRules(): array
+    {
+        return self::ROUTING_RULES;
+    }
+
 
     /**
      * Configure application
@@ -30,25 +47,8 @@ class FrontWebApplication extends SimpleApplication
      */
     public function configure() : ApplicationInterface
     {
-        $this->requirePackage(KnotFrameworkPackage::class);
-        $this->requirePackage(GuzzleHttpPackage::class);
-        $this->requireModule(FrontRouterModule::class);
-        $this->requireModule(FrontDiModule::class);
-        $this->requireModule(AuraSessionModule::class);
+        parent::configure();
+
         return $this;
-    }
-
-    /**
-     * Handle exception
-     *
-     * @param Throwable $e
-     *
-     * @return bool
-     */
-    public function handleException(Throwable $e) : bool
-    {
-        LoggerUtil::logException($e, $this->logger());
-
-        return false;
     }
 }

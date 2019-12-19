@@ -22,33 +22,29 @@ class ErrorView extends BaseView
      * 404: Not Found
      *
      * @param array $data
-     * @param string $layout
-     * @param string $page
      * @param ResponseInterface $response
      *
      * @return ResponseInterface
      *
      * @throws
      */
-    public function status404(array $data, string $layout, string $page, ResponseInterface $response) : ResponseInterface
+    public function status404(array $data, ResponseInterface $response) : ResponseInterface
     {
-        return $this->render($data, $layout, $page, $response);
+        return $this->render($data, 'error', 'error/status404', $response);
     }
     /**
      * 500: Internal server error
      *
      * @param array $data
-     * @param string $layout
-     * @param string $page
      * @param ResponseInterface $response
      *
      * @return ResponseInterface
      *
      * @throws
      */
-    public function status500(array $data, string $layout, string $page, ResponseInterface $response) : ResponseInterface
+    public function status500(array $data, ResponseInterface $response) : ResponseInterface
     {
-        return $this->render($data, $layout, $page, $response);
+        return $this->render($data, 'error', 'error/status500', $response);
     }
     /**
      * show error

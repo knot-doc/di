@@ -8,8 +8,8 @@ require_once $base_dir . '/vendor/autoload.php';
 require_once $base_dir . '/include/functions.php';
 
 (new KnotLib\Kernel\Bootstrap())
-    ->mount(new KnotDoc\Di\FileSystem\FrontFileSystem($base_dir))
-    ->handleException(function(Throwable $e){
+    ->withFileSystem(new KnotDoc\Di\FileSystem\FrontFileSystem($base_dir))
+    ->withExceptionHandler(function(Throwable $e){
         echo '<pre>';
         echo $e->getMessage(), PHP_EOL;
         echo '------------------------------------', PHP_EOL;
