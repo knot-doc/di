@@ -6,7 +6,7 @@ use KnotLib\Kernel\Kernel\ApplicationInterface;
 use KnotLib\Router\DispatcherInterface;
 use KnotLib\Router\Router;
 use KnotLib\Service\DI;
-use KnotLib\Service\DiServiceTrait;
+use KnotLib\Service\Util\DiServiceTrait;
 use KnotLib\Service\LoggerService;
 
 use KnotDoc\Di\App\Front\Controller\DocumentController;
