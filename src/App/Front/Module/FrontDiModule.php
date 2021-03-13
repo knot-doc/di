@@ -3,26 +3,39 @@ namespace KnotDoc\Di\App\Front\Module;
 
 use Throwable;
 
-use KnotLib\Service\DiServiceTrait;
-use KnotLib\Kernel\Module\Components;
+use KnotLib\Service\Util\DiServiceTrait;
+use KnotLib\Kernel\Module\ComponentTypes;
 use KnotLib\Kernel\Kernel\ApplicationInterface;
 use KnotLib\Kernel\Module\ModuleInterface;
-use KnotLib\Kernel\Module\AbstractModule;
 use KnotLib\Kernel\Exception\ModuleInstallationException;
+use KnotLib\Service\LoggerService;
 
-class FrontDiModule extends AbstractModule implements ModuleInterface
+use KnotDoc\Di\Constants\LogChannels;
+use KnotDoc\Di\Service\DI;
+
+class FrontDiModule implements ModuleInterface
 {
     use DiServiceTrait;
+
+    /**
+     * Declare dependency on another modules
+     *
+     * @return array
+     */
+    public static function requiredModules() : array
+    {
+        return [];
+    }
 
     /**
      * Declare dependent on components
      *
      * @return array
      */
-    public static function requiredComponents() : array
+    public static function requiredComponentTypes() : array
     {
         return [
-            Components::SESSION,
+            ComponentTypes::SESSION,
         ];
     }
 
@@ -31,7 +44,7 @@ class FrontDiModule extends AbstractModule implements ModuleInterface
      */
     public static function declareComponentType(): string
     {
-        return Components::DI;
+        return ComponentTypes::APPLICATION;
     }
 
     /**
@@ -44,12 +57,18 @@ class FrontDiModule extends AbstractModule implements ModuleInterface
     public function install(ApplicationInterface $app)
     {
         try{
-            //$c = $app->di();
-            
+            $di = $app->di();
+
             //$fs = $app->fileSystem();
             //$session = $app->session();
             //$logger = $app->logger();
 
+            // services.logger factory
+            $di->extend(DI::URI_SERVICE_LOGGER, function($component){
+                /** @var LoggerService $component */
+                $component->setChannelId(LogChannels::FRONT);
+                return $component;
+            });
         }
         catch(Throwable $e)
         {
