@@ -47,17 +47,34 @@ Composer version 1.9.1 2019-11-01 17:20:17
 
 ## プロジェクトの作成
 
-以下のコマンドを実行すると、/tmp/diにknot-lib/di用のソースコードプロジェクトが作成されます。
+以下のコマンドを実行すると、/tmp/diにknot-document/diのソースコードプロジェクトが作成されます。
 
 ```cmd
 $ cd /tmp
-$ composer require knot-lib/di 
+$ composer create-project knot-document/di 
 ```
 
-## autoload.phpのインクルード
+その後、以下のコマンドを実行してバージョンが表示されればインストールは完了です。
 
-knot-lib/diのクラスを自動的に読み込むため、以下のコードをスクリプトの先頭に記述してください。
-
-```php
-require_once __DIR__ . '/vendor/autoload.php';
+```cmd
+$ cd MyApp
+$ vendor/bin/knot system:version
+kNot Framework Command System Ver.1.0.0 Released 2019-12-08
 ```
+
+## コマンドのパスを通す
+
+knotコマンドのパス(vendor/bin/knot)を通すようシェルまたは環境変数の設定を行ってください。
+
+## PHPビルトインサーバでknot-document/diアプリを起動する
+
+以下のcomposerコマンドを実行することで、「[http://localhost:8880](http://localhost:8880)」でアプリケーションを起動できます。
+
+```cmd
+$ composer start
+```
+
+公開ディレクトリの場所は「di/public」です。
+
+ApacheやNginxといったWebサーバでkNotアプリを公開する場合は、上記の公開ディレクトリ設定を行ってください。
+

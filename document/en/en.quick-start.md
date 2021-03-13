@@ -71,7 +71,7 @@ knotコマンドのパス(vendor/bin/knot)を通すようシェルまたは環�
 以下のcomposerコマンドを実行することで、「[http://localhost:8880](http://localhost:8880)」でアプリケーションを起動できます。
 
 ```cmd
-$ composer serve
+$ composer start
 ```
 
 公開ディレクトリの場所は「di/public」です。
