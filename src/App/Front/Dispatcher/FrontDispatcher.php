@@ -48,11 +48,11 @@ class FrontDispatcher implements DispatcherInterface
      * @param array $vars
      * @param string $route_name
      *
-     * @return bool
+     * @return void
      *
      * @throws
      */
-    public function dispatch(string $path, array $vars, string $route_name)
+    public function dispatch(string $path, array $vars, string $route_name) : void
     {
         $logger = $this->getLogger();
         
@@ -106,7 +106,5 @@ class FrontDispatcher implements DispatcherInterface
         }
 
         $this->app->response($response);
-
-        return true;
     }
 }

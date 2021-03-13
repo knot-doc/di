@@ -6,8 +6,10 @@ use KnotLib\Router\DispatcherInterface;
 use KnotLib\Kernel\Kernel\ApplicationInterface;
 
 use KnotPhp\Framework\Application\KnotHttpApplication;
+use KnotPhp\Module\KnotExceptionHandler\Html\HtmlExceptionHandlerModule;
 
 use KnotDoc\Di\App\Front\Dispatcher\FrontDispatcher;
+use KnotDoc\Di\App\Front\Module\FrontDiModule;
 
 class FrontWebApplication extends KnotHttpApplication
 {
@@ -48,6 +50,9 @@ class FrontWebApplication extends KnotHttpApplication
     public function configure() : ApplicationInterface
     {
         parent::configure();
+
+        $this->requireModule(HtmlExceptionHandlerModule::class);
+        $this->requireModule(FrontDiModule::class);
 
         return $this;
     }
